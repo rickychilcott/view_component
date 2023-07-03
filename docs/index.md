@@ -10,23 +10,26 @@ A framework for creating reusable, testable & encapsulated view components, buil
 
 ## What's a ViewComponent?
 
-Think of ViewComponents as an evolution of the presenter pattern, inspired by [React](https://reactjs.org/docs/react-component.html). A ViewComponent is a Ruby object:
+Think of ViewComponents as an evolution of the presenter pattern, inspired by [React](https://reactjs.org/docs/react-component.html). A ViewComponent is a Ruby object and template:
 
 ```ruby
+# app/components/message_component.rb
 class MessageComponent < ViewComponent::Base
-  erb_template <<-ERB
-    <h1>Hello, <%= @name %>!</h1>
-  ERB
-
   def initialize(name:)
     @name = name
   end
 end
 ```
 
+```erb
+<%# app/components/message_component.html.erb %>
+<h1>Hello, <%= @name %>!</h1>
+```
+
 Which is instantiated and passed to Rails' `#render`:
 
 ```erb
+<%# app/views/demo/index.html.erb %>
 <%= render(MessageComponent.new(name: "World")) %>
 ```
 
@@ -82,7 +85,7 @@ Based on several [benchmarks](https://github.com/viewcomponent/view_component/bl
 
 The primary optimization is pre-compiling all ViewComponent templates at application boot, instead of at runtime like traditional Rails views.
 
-For example, the `MessageComponent` template is compiled onto the Ruby object:
+For example, the `MessageComponent` template is compiled onto the Ruby object like so:
 
 ```ruby
 # app/components/message_component.rb
@@ -216,6 +219,7 @@ ViewComponent is built by over a hundred members of the community, including:
 * [Avo](https://avohq.io/)
 * [Bearer](https://www.bearer.com/) (70+ components)
 * [Brightline](https://hellobrightline.com)
+* [Causey](https://www.causey.app/) (100+ components)
 * [City of Paris](https://www.paris.fr/)
 * [Clio](https://www.clio.com/)
 * [Cometeer](https://cometeer.com/)
